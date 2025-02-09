@@ -1,0 +1,7 @@
+.example-card {
+    max-width: 300px;
+  }
+  .example-header-image {
+    background-image: url('https://pbs.twimg.com/profile_images/697111882826559488/113lXfh-_400x400.jpg');
+    background-size: cover;
+  }
