@@ -24,7 +24,7 @@ steps:
       set -x  # Debugging mode
       az storage blob upload-batch \
         --destination "\$web" \  # Escape $ to prevent variable expansion
-        --source "$(Build.SourcesDirectory)/dist/ng-profile/browser" \
+        --source "$(Build.SourcesDirectory)/dist/ng-profile/browser"\
         --account-name "azurestrg11" \
         --overwrite true
   displayName: 'Upload files to Azure Storage ($web)'
