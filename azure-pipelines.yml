@@ -15,27 +15,16 @@ steps:
     npm install
     ng build --configuration=production
   displayName: 'npm install and build'
-
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'JT-Azure-Dev-Pay-As-You-Go(c6d7e5ed-34e5-4e53-a5dd-2f4f2412e46a)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      az storage blob upload-batch --destination $web --source $(Build.SourcesDirectory)/dist --account-name azurestrg11 --overwrite true
-  displayName: 'Upload files to Azure Storage'
-  condition: 
-
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'JT-Azure-Dev-Pay-As-You-Go(c6d7e5ed-34e5-4e53-a5dd-2f4f2412e46a)'  # Replace with your actual service connection name
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      set -x  # Debugging mode
       az storage blob upload-batch \
-        --destination $web \  # Replace with your actual container name
-        --source $(Build.SourcesDirectory)/dist \
-        --account-name azurestrg11 \  # Replace with your storage account name
+        --destination "\$web" \  # Escape $ to prevent variable expansion
+        --source "$(Build.SourcesDirectory)/dist" \
+        --account-name "azurestrg11" \
         --overwrite true
-  displayName: 'Upload files to Azure Storage'
-
+  displayName: 'Upload files to Azure Storage ($web)'
